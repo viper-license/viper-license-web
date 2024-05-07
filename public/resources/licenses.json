@@ -1,0 +1,17 @@
+[
+    {
+        "name": "APACHE",
+        "header": "/headers/apache.txt",
+        "full": "/licenses/apache.txt"
+    },
+    {
+        "name": "GPL3",
+        "header": "/headers/gpl3.txt",
+        "full": "/licenses/gpl3.txt"
+    },
+    {
+        "name": "MIT",
+        "header": "/headers/mit.txt",
+        "full": "/licenses/mit.txt"
+    }
+]
