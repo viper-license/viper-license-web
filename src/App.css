@@ -3,3 +3,10 @@
   display: flex;
   flex-direction: column;
 }
+.LicenseView {
+  display: flex;
+  flex-direction: row;
+}
+.preview {
+  text-align: start;
+}

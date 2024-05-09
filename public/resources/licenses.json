@@ -1,15 +1,18 @@
 [
     {
+        "id": "apache",
         "name": "APACHE",
         "header": "/headers/apache.txt",
         "full": "/licenses/apache.txt"
     },
     {
+        "id": "gpl3",
         "name": "GPL3",
         "header": "/headers/gpl3.txt",
         "full": "/licenses/gpl3.txt"
     },
     {
+        "id": "mit",
         "name": "MIT",
         "header": "/headers/mit.txt",
         "full": "/licenses/mit.txt"
