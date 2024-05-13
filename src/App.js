@@ -6,8 +6,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function fetchSource() {
@@ -23,16 +21,20 @@ function fetchSource() {
             const url2 = process.env.PUBLIC_URL + "/resources" + full;
             let text1;
             try {
-              console.log(url1);
+              // console.log(url1);
               let resp = await fetch(url1);
               text1 = await resp.text();
-            } catch (e) {}
+            } catch (e) {
+              console.error(e);
+            }
             let text2;
             try {
-              console.log(url2);
+              // console.log(url2);
               let resp = await fetch(url2);
               text2 = await resp.text();
-            } catch (e) {}
+            } catch (e) {
+              console.error(e);
+            }
             sources.push({ id, name, header: text1, full: text2 });
           }
           resolve(sources);
@@ -42,6 +44,11 @@ function fetchSource() {
         }
       );
   });
+}
+
+function LicensePreview(props) {
+  console.log(props.children);
+  return <pre>{props.children}</pre>;
 }
 
 function App() {
@@ -55,7 +62,7 @@ function App() {
   useEffect(() => {
     fetchSource().then(
       (sources) => {
-        console.log(sources);
+        // console.log(sources);
         setSources(sources);
       },
       (err) => {
@@ -79,8 +86,8 @@ function App() {
     });
     if (source) {
       const { header, full } = source;
-      setLicenseShortStr(`\`\`\`${header}\`\`\``);
-      setLicenseShortMarkdownStr(`\`\`\`${full}\`\`\``);
+      setLicenseShortStr(header);
+      setLicenseShortMarkdownStr(full);
     }
   }, [selected, sources]);
   const handleChange = (event) => {
@@ -132,16 +139,22 @@ function App() {
           ))}
         </Select>
       </FormControl>
-      <CopyToClipboard text="Hello!">
-        <Button variant="contained">拷贝到剪贴板</Button>
-      </CopyToClipboard>
+
       <div className="LicenseView">
-        <Markdown className="preview" remarkPlugins={[remarkGfm]}>
-          {licenceShortStr}
-        </Markdown>
-        <Markdown className="preview" remarkPlugins={[remarkGfm]}>
-          {licenceShortMarkdownStr}
-        </Markdown>
+        <div className="panel-short">
+          <CopyToClipboard text="Hello!">
+            <Button variant="contained">拷贝到剪贴板</Button>
+          </CopyToClipboard>
+          <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
+        </div>
+        <div className="panel-long">
+          <CopyToClipboard text="Hello!">
+            <Button variant="contained">拷贝到剪贴板</Button>
+          </CopyToClipboard>
+          <LicensePreview className="preview">
+            {licenceShortMarkdownStr}
+          </LicensePreview>
+        </div>
       </div>
     </div>
   );

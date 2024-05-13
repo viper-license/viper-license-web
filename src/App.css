@@ -10,3 +10,13 @@
 .preview {
   text-align: start;
 }
+.panel-short {
+  flex: 1;
+  padding: 16px;
+  text-align: start;
+}
+.panel-long {
+  flex: 1;
+  padding: 16px;
+  text-align: start;
+}
