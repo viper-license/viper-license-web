@@ -75,17 +75,26 @@ function formatLicenseShortOut(text, info) {
   return newLines.join("\n");
 }
 
-function generateMarkdown(text) {
-  const lines = text.split("\n");
-  const newLines = [];
-  for (let line of lines) {
-    line = "> " + line;
-    newLines.push(line);
-  }
-  let newText = newLines.join("\n");
-  newText = "### License \n> \n" + newText;
-  return newText;
-}
+const generator = {
+  quote: function (text) {
+    const lines = text.split("\n");
+    const newLines = [];
+    for (let line of lines) {
+      line = "> " + line;
+      newLines.push(line);
+    }
+    let newText = newLines.join("\n");
+    newText = "### License \n> \n" + newText;
+    return newText;
+  },
+  code: function (text) {
+    let newText = text;
+    newText = "```\n" + newText;
+    newText = newText + "```";
+    newText = "### License \n" + newText;
+    return newText;
+  },
+};
 
 function LicensePreview(props) {
   console.log(props.children);
@@ -178,7 +187,7 @@ function App() {
 
       <div className="LicenseView">
         <div className="panel-short">
-          <CopyToClipboard text={generateMarkdown(licenceShortStr)}>
+          <CopyToClipboard text={generator["code"](licenceShortStr)}>
             <Button variant="contained">拷贝到剪贴板</Button>
           </CopyToClipboard>
           <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
