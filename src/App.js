@@ -83,7 +83,7 @@ function generateMarkdown(text) {
     newLines.push(line);
   }
   let newText = newLines.join("\n");
-  newText = ">\n" + newText;
+  newText = "### License \n> \n" + newText;
   return newText;
 }
 
