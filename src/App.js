@@ -46,6 +46,35 @@ function fetchSource() {
   });
 }
 
+function formatLicenseShortOut(text, info) {
+  let yearPattern;
+  let userPattern;
+  if (info.id === "apache") {
+    yearPattern = "[yyyy]";
+    userPattern = "[name of copyright owner]";
+  } else if (info.id === "gpl3") {
+    yearPattern = "<year>";
+    userPattern = "<name of author>";
+  } else if (info.id === "mit") {
+    yearPattern = "[year]";
+    userPattern = "[fullname]";
+  }
+
+  const lines = text.split("\n");
+  const newLines = [];
+  for (let line of lines) {
+    if (yearPattern && userPattern) {
+      let newLine = line;
+      newLine = newLine.replace(yearPattern, info.year);
+      newLine = newLine.replace(userPattern, info.user);
+      newLines.push(newLine);
+      continue;
+    }
+    newLines.push(line);
+  }
+  return newLines.join("\n");
+}
+
 function LicensePreview(props) {
   console.log(props.children);
   return <pre>{props.children}</pre>;
@@ -57,7 +86,7 @@ function App() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [user, setUser] = useState("mylhyz");
   const [licenceShortStr, setLicenseShortStr] = useState("");
-  const [licenceShortMarkdownStr, setLicenseShortMarkdownStr] = useState("");
+  const [licenceLargeStr, setLicenseLargeStr] = useState("");
 
   useEffect(() => {
     fetchSource().then(
@@ -78,18 +107,13 @@ function App() {
     setSelected(sources[0]);
   }, [sources]);
   useEffect(() => {
-    if (sources.length === 0 || !selected) {
+    if (!selected) {
       return;
     }
-    const source = sources.find((e) => {
-      return e.id === selected.id;
-    });
-    if (source) {
-      const { header, full } = source;
-      setLicenseShortStr(header);
-      setLicenseShortMarkdownStr(full);
-    }
-  }, [selected, sources]);
+    const { id, header, full } = selected;
+    setLicenseShortStr(formatLicenseShortOut(header, { id, year, user }));
+    setLicenseLargeStr(full);
+  }, [selected, year, user]);
   const handleChange = (event) => {
     const id = event.target.value;
     if (!id) {
@@ -151,9 +175,7 @@ function App() {
           <CopyToClipboard text="Hello!">
             <Button variant="contained">拷贝到剪贴板</Button>
           </CopyToClipboard>
-          <LicensePreview className="preview">
-            {licenceShortMarkdownStr}
-          </LicensePreview>
+          <LicensePreview className="preview">{licenceLargeStr}</LicensePreview>
         </div>
       </div>
     </div>
