@@ -97,8 +97,29 @@ const generator = {
 };
 
 function LicensePreview(props) {
-  console.log(props.children);
   return <pre>{props.children}</pre>;
+}
+
+function DownloadLink(props) {
+  return (
+    <Button
+      variant="contained"
+      onClick={() => {
+        const url = window.URL.createObjectURL(new Blob([props.licenseText]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "LICENSE";
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }}
+    >
+      点击下载协议文件
+    </Button>
+  );
 }
 
 function App() {
@@ -193,7 +214,7 @@ function App() {
           <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
         </div>
         <div className="panel-long">
-          <Button variant="contained">点击下载协议文件</Button>
+          <DownloadLink licenseText={licenceLargeStr} />
           <LicensePreview className="preview">{licenceLargeStr}</LicensePreview>
         </div>
       </div>
