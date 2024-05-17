@@ -96,6 +96,10 @@ const generator = {
   },
 };
 
+function OneLine(props) {
+  return <div {...props}>{props.children}</div>;
+}
+
 function LicensePreview(props) {
   return <pre>{props.children}</pre>;
 }
@@ -171,42 +175,48 @@ function App() {
 
   return (
     <div className="App">
-      <TextField
-        id="standard-basic"
-        label="年份"
-        variant="standard"
-        value={year}
-        onChange={(event) => {
-          setYear(event.target.value);
-        }}
-      />
-      <TextField
-        id="standard-basic"
-        label="版权人"
-        variant="standard"
-        value={user}
-        onChange={(event) => {
-          setUser(event.target.value);
-        }}
-      />
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">协议</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          value={selected ? selected.id : ""}
-          label="协议"
-          onChange={handleChange}
-        >
-          {sources.map((item) => (
-            <MenuItem key={item.id} value={item.id}>
-              {item.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <OneLine className="one-line">
+        <TextField
+          id="standard-basic"
+          label="年份"
+          variant="standard"
+          value={year}
+          onChange={(event) => {
+            setYear(event.target.value);
+          }}
+        />
+      </OneLine>
+      <OneLine className="one-line">
+        <TextField
+          id="standard-basic"
+          label="版权人"
+          variant="standard"
+          value={user}
+          onChange={(event) => {
+            setUser(event.target.value);
+          }}
+        />
+      </OneLine>
+      <OneLine className="one-line">
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-helper-label">协议</InputLabel>
+          <Select
+            labelId="demo-simple-select-helper-label"
+            id="demo-simple-select-helper"
+            value={selected ? selected.id : ""}
+            label="协议"
+            onChange={handleChange}
+          >
+            {sources.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </OneLine>
 
-      <div className="LicenseView">
+      <div className="license-view">
         <div className="panel-short">
           <CopyToClipboard text={generator["code"](licenceShortStr)}>
             <Button variant="contained">拷贝到剪贴板</Button>
