@@ -1,5 +1,13 @@
 [
   {
+    "id": "apache-2.0",
+    "name": "Apache License Version 2.0",
+    "short": "Apache-2.0",
+    "header": "/headers/apache-2.0.txt",
+    "full": "/licenses/apache-2.0.txt",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+  },
+  {
     "id": "gpl-3.0",
     "name": "GNU GENERAL PUBLIC LICENSE Version 3",
     "short": "GPLv3",
@@ -22,14 +30,6 @@
     "header": "/headers/agpl-3.0.txt",
     "full": "/licenses/agpl-3.0.txt",
     "url": "https://www.gnu.org/licenses/agpl-3.0.txt"
-  },
-  {
-    "id": "apache-2.0",
-    "name": "Apache License Version 2.0",
-    "short": "Apache-2.0",
-    "header": "/headers/apache-2.0.txt",
-    "full": "/licenses/apache-2.0.txt",
-    "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
   },
   {
     "id": "mit",
