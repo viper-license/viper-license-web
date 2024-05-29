@@ -16,7 +16,7 @@ function fetchSource() {
         async (res) => {
           const sources = [];
           for (let item of res) {
-            const { id, name, header, full } = item;
+            const { id, name, short, header, full } = item;
             const url1 = process.env.PUBLIC_URL + "/resources" + header;
             const url2 = process.env.PUBLIC_URL + "/resources" + full;
             let text1;
@@ -35,7 +35,7 @@ function fetchSource() {
             } catch (e) {
               console.error(e);
             }
-            sources.push({ id, name, header: text1, full: text2 });
+            sources.push({ id, name, short, header: text1, full: text2 });
           }
           resolve(sources);
         },
@@ -49,15 +49,18 @@ function fetchSource() {
 function formatLicenseShortOut(text, info) {
   let yearPattern;
   let userPattern;
-  if (info.id === "apache") {
+  if (info.id === "apache-2.0") {
     yearPattern = "[yyyy]";
     userPattern = "[name of copyright owner]";
-  } else if (info.id === "gpl3") {
+  } else if (info.id === "gpl-3.0") {
     yearPattern = "<year>";
     userPattern = "<name of author>";
   } else if (info.id === "mit") {
     yearPattern = "[year]";
     userPattern = "[fullname]";
+  } else if (info.id === "agpl-3.0") {
+    yearPattern = "<year>";
+    userPattern = "<name of author>";
   }
 
   const lines = text.split("\n");
@@ -90,7 +93,7 @@ const generator = {
   code: function (text) {
     let newText = text;
     newText = "```\n" + newText;
-    newText = newText + "```";
+    newText = newText + "\n```";
     newText = "### License \n" + newText;
     return newText;
   },
@@ -209,7 +212,7 @@ function App() {
           >
             {sources.map((item) => (
               <MenuItem key={item.id} value={item.id}>
-                {item.name}
+                {item.short}
               </MenuItem>
             ))}
           </Select>

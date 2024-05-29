@@ -1,20 +1,42 @@
 [
-    {
-        "id": "apache",
-        "name": "APACHE",
-        "header": "/headers/apache.txt",
-        "full": "/licenses/apache.txt"
-    },
-    {
-        "id": "gpl3",
-        "name": "GPL3",
-        "header": "/headers/gpl3.txt",
-        "full": "/licenses/gpl3.txt"
-    },
-    {
-        "id": "mit",
-        "name": "MIT",
-        "header": "/headers/mit.txt",
-        "full": "/licenses/mit.txt"
-    }
+  {
+    "id": "gpl-3.0",
+    "name": "GNU GENERAL PUBLIC LICENSE Version 3",
+    "short": "GPLv3",
+    "header": "/headers/gpl-3.0.txt",
+    "full": "/licenses/gpl-3.0.txt",
+    "url": "https://www.gnu.org/licenses/gpl-3.0.txt"
+  },
+  {
+    "id": "lgpl-3.0",
+    "name": "GNU LESSER GENERAL PUBLIC LICENSE Version 3",
+    "short": "LGPLv3",
+    "header": "/headers/lgpl-3.0.txt",
+    "full": "/licenses/lgpl-3.0.txt",
+    "url": "https://www.gnu.org/licenses/lgpl-3.0.txt"
+  },
+  {
+    "id": "agpl-3.0",
+    "name": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3",
+    "short": "GNU AGPLv3",
+    "header": "/headers/agpl-3.0.txt",
+    "full": "/licenses/agpl-3.0.txt",
+    "url": "https://www.gnu.org/licenses/agpl-3.0.txt"
+  },
+  {
+    "id": "apache-2.0",
+    "name": "Apache License Version 2.0",
+    "short": "Apache-2.0",
+    "header": "/headers/apache-2.0.txt",
+    "full": "/licenses/apache-2.0.txt",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+  },
+  {
+    "id": "mit",
+    "name": "MIT License",
+    "short": "MIT",
+    "header": "/headers/mit.txt",
+    "full": "/licenses/mit.txt",
+    "url": "https://opensource.org/license/mit"
+  }
 ]
