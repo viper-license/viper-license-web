@@ -5,9 +5,13 @@
 
 ### licenses site
 
-- https://www.apache.org/licenses/LICENSE-2.0
-- https://choosealicense.com/licenses/mit/
-- https://choosealicense.com/licenses/gpl-3.0/
+- https://www.gnu.org/licenses/gpl-3.0.txt
+- https://www.gnu.org/licenses/lgpl-3.0.txt
+- https://www.gnu.org/licenses/agpl-3.0.txt
+- https://www.apache.org/licenses/LICENSE-2.0.txt
+- https://opensource.org/license/mit
+- https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt
+- https://unlicense.org/UNLICENSE
 
 ### License 
 ```

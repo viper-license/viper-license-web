@@ -19,14 +19,16 @@ const runMain = (argv) => {
     createFileIsNotExists(
       path.join(__dirname, "../public/resources" + licenseF)
     );
+    const url = item.url ? item.url : item.web_url;
     generated.push({
       id: item.id,
       name: item.fullName,
       short: item.shortName,
       header: headerF,
       full: licenseF,
-      url: item.url ? item.url : item.web_url,
+      url,
     });
+    console.log(`- ${url}`);
   }
   fs.writeFileSync(
     path.join(__dirname, "../public/resources/licenses.json"),
