@@ -38,5 +38,21 @@
     "header": "/headers/mit.txt",
     "full": "/licenses/mit.txt",
     "url": "https://opensource.org/license/mit"
+  },
+  {
+    "id": "mpl-2.0",
+    "name": "Mozilla Public License Version 2.0",
+    "short": "MPL-2.0",
+    "header": "/headers/mpl-2.0.txt",
+    "full": "/licenses/mpl-2.0.txt",
+    "url": "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"
+  },
+  {
+    "id": "unlicense",
+    "name": "The Unlicense",
+    "short": "Unlicense",
+    "header": "/headers/unlicense.txt",
+    "full": "/licenses/unlicense.txt",
+    "url": "https://unlicense.org/UNLICENSE"
   }
 ]

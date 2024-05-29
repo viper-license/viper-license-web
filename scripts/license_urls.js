@@ -29,4 +29,16 @@ module.exports = [
     shortName: "MIT",
     web_url: "https://opensource.org/license/mit",
   },
+  {
+    fullName: "Mozilla Public License Version 2.0",
+    id: "mpl-2.0",
+    shortName: "MPL-2.0",
+    url: "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt",
+  },
+  {
+    fullName: "The Unlicense",
+    id: "unlicense",
+    shortName: "Unlicense",
+    web_url: "https://unlicense.org/UNLICENSE",
+  },
 ];
