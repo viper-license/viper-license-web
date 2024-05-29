@@ -6,20 +6,20 @@
 .license-view {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .preview {
   text-align: start;
 }
 .panel-short {
-  flex: 1;
   padding: 16px;
   text-align: start;
+  min-width: 480px;
+  background-color: aliceblue;
 }
 .panel-long {
-  flex: 1;
   padding: 16px;
   text-align: start;
-}
-.one-line {
-  padding: 4px;
+  min-width: 480px;
+  background-color: aliceblue;
 }

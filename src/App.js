@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Grid from "@mui/material/Grid";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 function fetchSource() {
@@ -99,10 +102,6 @@ const generator = {
   },
 };
 
-function OneLine(props) {
-  return <div {...props}>{props.children}</div>;
-}
-
 function LicensePreview(props) {
   return <pre>{props.children}</pre>;
 }
@@ -178,46 +177,51 @@ function App() {
 
   return (
     <div className="App">
-      <OneLine className="one-line">
-        <TextField
-          id="standard-basic"
-          label="年份"
-          variant="standard"
-          value={year}
-          onChange={(event) => {
-            setYear(event.target.value);
-          }}
-        />
-      </OneLine>
-      <OneLine className="one-line">
-        <TextField
-          id="standard-basic"
-          label="版权人"
-          variant="standard"
-          value={user}
-          onChange={(event) => {
-            setUser(event.target.value);
-          }}
-        />
-      </OneLine>
-      <OneLine className="one-line">
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-helper-label">协议</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={selected ? selected.id : ""}
-            label="协议"
-            onChange={handleChange}
-          >
-            {sources.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
-                {item.short}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </OneLine>
+      <Typography variant="h3" gutterBottom>
+        开源协议生成器
+      </Typography>
+      <Grid sx={{ flexGrow: 0 }} container spacing={2} justifyContent="center">
+        <Grid item xs={1}>
+          <TextField
+            id="standard-basic"
+            label="年份"
+            variant="standard"
+            value={year}
+            onChange={(event) => {
+              setYear(event.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <TextField
+            id="standard-basic"
+            label="版权人"
+            variant="standard"
+            value={user}
+            onChange={(event) => {
+              setUser(event.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">协议</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={selected ? selected.id : ""}
+              label="协议"
+              onChange={handleChange}
+            >
+              {sources.map((item) => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.short}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
 
       <div className="license-view">
         <div className="panel-short">
