@@ -52,9 +52,11 @@ function fetchSource() {
 function formatLicenseShortOut(text, info) {
   let yearPattern;
   let userPattern;
+  let trimStart = false;
   if (info.id === "apache-2.0") {
     yearPattern = "[yyyy]";
     userPattern = "[name of copyright owner]";
+    trimStart = true;
   } else if (info.id === "gpl-3.0") {
     yearPattern = "<year>";
     userPattern = "<name of author>";
@@ -69,6 +71,10 @@ function formatLicenseShortOut(text, info) {
   const lines = text.split("\n");
   const newLines = [];
   for (let line of lines) {
+    if (trimStart) {
+      line = line.trimStart();
+      line = " " + line;
+    }
     if (yearPattern && userPattern) {
       let newLine = line;
       newLine = newLine.replace(yearPattern, info.year);
