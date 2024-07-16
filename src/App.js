@@ -139,7 +139,7 @@ function DownloadLink(props) {
 function App() {
   const [sources, setSources] = useState([]);
   const [selected, setSelected] = useState();
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [year, setYear] = useState(CacheManager.getYear());
   const [user, setUser] = useState(CacheManager.getAuthor());
   const [licenceShortStr, setLicenseShortStr] = useState("");
   const [licenceLargeStr, setLicenseLargeStr] = useState("");
@@ -196,7 +196,9 @@ function App() {
             variant="standard"
             value={year}
             onChange={(event) => {
-              setYear(event.target.value);
+              let year = event.target.value;
+              setYear(year);
+              CacheManager.setYear(year);
             }}
           />
         </Grid>

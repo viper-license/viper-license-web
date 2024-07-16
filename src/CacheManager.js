@@ -20,10 +20,29 @@ function setAuthor(author) {
   }
 }
 
+function getYear() {
+  const KEY_YEAR = "vlw_year";
+  if (checkStorage()) {
+    let year = localStorage.getItem(KEY_YEAR);
+    if (year) {
+      return year;
+    }
+  }
+  return new Date().getFullYear();
+}
+function setYear(year) {
+  const KEY_YEAR = "vlw_year";
+  if (checkStorage()) {
+    localStorage.setItem(KEY_YEAR, year);
+  }
+}
+
 const CacheManager = {
   checkStorage,
   getAuthor,
   setAuthor,
+  getYear,
+  setYear,
 };
 
 export default CacheManager;
