@@ -16,7 +16,7 @@ import LocalFileManager from "./LocalFileManager";
 
 // 根据需要判断是否先从缓存读取
 function isCacheFirst() {
-  return global.isVersionUpdated;
+  return !global.isVersionUpdated;
 }
 
 function fetchFile(url) {
