@@ -16,7 +16,7 @@ import LocalFileManager from "./LocalFileManager";
 
 // 根据需要判断是否先从缓存读取
 function isCacheFirst() {
-  return true;
+  return global.isVersionUpdated;
 }
 
 function fetchFile(url) {
@@ -168,8 +168,8 @@ function DownloadLink(props) {
 function App() {
   const [sources, setSources] = useState([]);
   const [selected, setSelected] = useState();
-  const [year, setYear] = useState(CacheManager.getYear());
-  const [user, setUser] = useState(CacheManager.getAuthor());
+  const [year, setYear] = useState(CacheManager.readYear());
+  const [user, setUser] = useState(CacheManager.readAuthor());
   const [licenceShortStr, setLicenseShortStr] = useState("");
   const [licenceLargeStr, setLicenseLargeStr] = useState("");
 
@@ -227,7 +227,7 @@ function App() {
             onChange={(event) => {
               let year = event.target.value;
               setYear(year);
-              CacheManager.setYear(year);
+              CacheManager.saveYear(year);
             }}
           />
         </Grid>
@@ -240,7 +240,7 @@ function App() {
             onChange={(event) => {
               let author = event.target.value;
               setUser(author);
-              CacheManager.setAuthor(author);
+              CacheManager.saveAuthor(author);
             }}
           />
         </Grid>

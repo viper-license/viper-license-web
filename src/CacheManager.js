@@ -2,46 +2,56 @@ function checkStorage() {
   return typeof Storage !== "undefined";
 }
 
-function getAuthor() {
-  const KEY_AUTHOR = "vlw_author";
+function read(key, defaultValue) {
   if (checkStorage()) {
-    let author = localStorage.getItem(KEY_AUTHOR);
-    if (author) {
-      return author;
+    let data = localStorage.getItem(key);
+    if (data) {
+      return data;
     }
   }
-  return "mylhyz";
+  return defaultValue;
 }
-
-function setAuthor(author) {
-  const KEY_AUTHOR = "vlw_author";
+function write(key, data) {
   if (checkStorage()) {
-    localStorage.setItem(KEY_AUTHOR, author);
+    localStorage.setItem(key, data);
   }
 }
 
-function getYear() {
-  const KEY_YEAR = "vlw_year";
-  if (checkStorage()) {
-    let year = localStorage.getItem(KEY_YEAR);
-    if (year) {
-      return year;
-    }
-  }
-  return new Date().getFullYear();
+const KEY_AUTHOR = "vlw_author";
+
+function readAuthor() {
+  return read(KEY_AUTHOR, "mylhyz");
 }
-function setYear(year) {
-  const KEY_YEAR = "vlw_year";
-  if (checkStorage()) {
-    localStorage.setItem(KEY_YEAR, year);
-  }
+
+function saveAuthor(author) {
+  write(KEY_AUTHOR, author);
+}
+
+const KEY_YEAR = "vlw_year";
+
+function readYear() {
+  return read(KEY_YEAR, new Date().getFullYear());
+}
+function saveYear(year) {
+  write(KEY_YEAR, year);
+}
+
+const KEY_VERSION = "vlw_version";
+
+function readVersion() {
+  return read(KEY_VERSION);
+}
+function saveVersion(version) {
+  write(KEY_VERSION, version);
 }
 
 const CacheManager = {
-  getAuthor,
-  setAuthor,
-  getYear,
-  setYear,
+  readAuthor,
+  saveAuthor,
+  readYear,
+  saveYear,
+  readVersion,
+  saveVersion,
 };
 
 export default CacheManager;
