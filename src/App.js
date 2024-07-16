@@ -12,10 +12,39 @@ import Grid from "@mui/material/Grid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import CacheManager from "./CacheManager";
+import LocalFileManager from "./LocalFileManager";
+
+// 根据需要判断是否先从缓存读取
+function isCacheFirst() {
+  return true;
+}
+
+function fetchFile(url) {
+  let data = null;
+  if (isCacheFirst()) {
+    data = LocalFileManager.fetchLocalFile(url);
+    if (data) {
+      return Promise.resolve({
+        json: () => {
+          return Promise.resolve(JSON.parse(data));
+        },
+        text: () => {
+          return Promise.resolve(data);
+        },
+      });
+    }
+  }
+  return fetch(url).then(async (res) => {
+    let copy = res.clone();
+    let data = await copy.text();
+    LocalFileManager.saveLocalFile(url, data);
+    return res;
+  });
+}
 
 function fetchSource() {
   return new Promise((resolve, reject) => {
-    fetch(process.env.PUBLIC_URL + "/resources/licenses.json")
+    fetchFile(process.env.PUBLIC_URL + "/resources/licenses.json")
       .then((res) => res.json())
       .then(
         async (res) => {
@@ -27,7 +56,7 @@ function fetchSource() {
             let text1;
             try {
               // console.log(url1);
-              let resp = await fetch(url1);
+              let resp = await fetchFile(url1);
               text1 = await resp.text();
             } catch (e) {
               console.error(e);
@@ -35,7 +64,7 @@ function fetchSource() {
             let text2;
             try {
               // console.log(url2);
-              let resp = await fetch(url2);
+              let resp = await fetchFile(url2);
               text2 = await resp.text();
             } catch (e) {
               console.error(e);

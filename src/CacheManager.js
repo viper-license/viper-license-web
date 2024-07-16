@@ -38,7 +38,6 @@ function setYear(year) {
 }
 
 const CacheManager = {
-  checkStorage,
   getAuthor,
   setAuthor,
   getYear,
