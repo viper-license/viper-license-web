@@ -11,6 +11,8 @@ import Grid from "@mui/material/Grid";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+import CacheManager from "./CacheManager";
+
 function fetchSource() {
   return new Promise((resolve, reject) => {
     fetch(process.env.PUBLIC_URL + "/resources/licenses.json")
@@ -138,7 +140,7 @@ function App() {
   const [sources, setSources] = useState([]);
   const [selected, setSelected] = useState();
   const [year, setYear] = useState(new Date().getFullYear());
-  const [user, setUser] = useState("mylhyz");
+  const [user, setUser] = useState(CacheManager.getAuthor());
   const [licenceShortStr, setLicenseShortStr] = useState("");
   const [licenceLargeStr, setLicenseLargeStr] = useState("");
 
@@ -205,7 +207,9 @@ function App() {
             variant="standard"
             value={user}
             onChange={(event) => {
-              setUser(event.target.value);
+              let author = event.target.value;
+              setUser(author);
+              CacheManager.setAuthor(author);
             }}
           />
         </Grid>
