@@ -106,7 +106,9 @@ function formatLicenseShortOut(text, info) {
   for (let line of lines) {
     if (trimStart) {
       line = line.trimStart();
-      line = " " + line;
+      if (line !== "") {
+        line = " " + line;
+      }
     }
     if (yearPattern && userPattern) {
       let newLine = line;
@@ -129,14 +131,14 @@ const generator = {
       newLines.push(line);
     }
     let newText = newLines.join("\n");
-    newText = "### License \n> \n" + newText;
+    newText = "### License\n\n> \n" + newText;
     return newText;
   },
   code: function (text) {
     let newText = text;
     newText = "```\n" + newText;
     newText = newText + "\n```";
-    newText = "### License \n" + newText;
+    newText = "### License\n\n" + newText;
     return newText;
   },
 };
