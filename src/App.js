@@ -91,12 +91,14 @@ function formatLicenseShortOut(text, info) {
   } else if (info.id === "gpl-3.0") {
     yearPattern = "<year>";
     userPattern = "<name of author>";
+    trimStart = true;
   } else if (info.id === "mit") {
     yearPattern = "[year]";
     userPattern = "[fullname]";
   } else if (info.id === "agpl-3.0") {
     yearPattern = "<year>";
     userPattern = "<name of author>";
+    trimStart = true;
   }
 
   const lines = text.split("\n");
