@@ -35,7 +35,7 @@ function isVersionUpdated() {
   }
   console.log(`release v-${latest}`);
   let ret = cached !== latest;
-  if (!ret) {
+  if (ret) {
     console.log(`version updated v-${latest}`);
     CacheManager.saveVersion(latest);
   }
