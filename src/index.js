@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -46,9 +48,8 @@ function isVersionUpdated() {
 global.isVersionUpdated = isVersionUpdated();
 
 // i18n 国际化
-i18next.init({
-  lng: "en",
-  debug: true,
+i18next.use(LanguageDetector).init({
+  supportedLngs: ["zh", "en"],
   resources: {
     en: {
       translation: {
