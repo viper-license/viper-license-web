@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import i18next from "i18next";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -43,6 +44,34 @@ function isVersionUpdated() {
 }
 
 global.isVersionUpdated = isVersionUpdated();
+
+// i18n 国际化
+i18next.init({
+  lng: "en",
+  debug: true,
+  resources: {
+    en: {
+      translation: {
+        click_to_download_license_file: "click to download",
+        copy_to_copyboard: "Copy Text",
+        title: "OpenSource License Generator",
+        label_year: "Year",
+        label_author: "Author",
+        label_license: "License",
+      },
+    },
+    zh: {
+      translation: {
+        click_to_download_license_file: "点击下载协议文件",
+        copy_to_copyboard: "拷贝到剪贴板",
+        title: "开源协议生成器",
+        label_year: "年份",
+        label_author: "版权人",
+        label_license: "协议",
+      },
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

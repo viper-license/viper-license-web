@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import i18next from "i18next";
 import "./App.css";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -164,7 +165,7 @@ function DownloadLink(props) {
         window.URL.revokeObjectURL(url);
       }}
     >
-      点击下载协议文件
+      {i18next.t("click_to_download_license_file")}
     </Button>
   );
 }
@@ -219,13 +220,13 @@ function App() {
   return (
     <div className="App">
       <Typography variant="h3" gutterBottom>
-        开源协议生成器
+        {i18next.t("title")}
       </Typography>
       <Grid sx={{ flexGrow: 0 }} container spacing={2} justifyContent="center">
         <Grid item xs={1}>
           <TextField
             id="standard-basic"
-            label="年份"
+            label={i18next.t("label_year")}
             variant="standard"
             value={year}
             onChange={(event) => {
@@ -238,7 +239,7 @@ function App() {
         <Grid item xs={1}>
           <TextField
             id="standard-basic"
-            label="版权人"
+            label={i18next.t("label_author")}
             variant="standard"
             value={user}
             onChange={(event) => {
@@ -250,12 +251,12 @@ function App() {
         </Grid>
         <Grid item xs={1}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">协议</InputLabel>
+            <InputLabel id="demo-simple-select-helper-label">{i18next.t("label_license")}</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={selected ? selected.id : ""}
-              label="协议"
+              label={i18next.t("label_license")}
               onChange={handleChange}
             >
               {sources.map((item) => (
@@ -271,7 +272,7 @@ function App() {
       <div className="license-view">
         <div className="panel-short">
           <CopyToClipboard text={generator["code"](licenceShortStr)}>
-            <Button variant="contained">拷贝到剪贴板</Button>
+            <Button variant="contained">{i18next.t("copy_to_copyboard")}</Button>
           </CopyToClipboard>
           <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
         </div>
