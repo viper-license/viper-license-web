@@ -123,6 +123,29 @@ function formatLicenseShortOut(text, info) {
   return newLines.join("\n");
 }
 
+function formatLicenseLargeOut(text, info) {
+  let yearPattern;
+  let userPattern;
+  if (info.id === "mit") {
+    yearPattern = "[year]";
+    userPattern = "[fullname]";
+  }
+
+  const lines = text.split("\n");
+  const newLines = [];
+  for (let line of lines) {
+    if (yearPattern && userPattern) {
+      let newLine = line;
+      newLine = newLine.replace(yearPattern, info.year);
+      newLine = newLine.replace(userPattern, info.user);
+      newLines.push(newLine);
+      continue;
+    }
+    newLines.push(line);
+  }
+  return newLines.join("\n");
+}
+
 const generator = {
   quote: function (text) {
     const lines = text.split("\n");
@@ -202,7 +225,7 @@ function App() {
     }
     const { id, header, full } = selected;
     setLicenseShortStr(formatLicenseShortOut(header, { id, year, user }));
-    setLicenseLargeStr(full);
+    setLicenseLargeStr(formatLicenseLargeOut(full, { id, year, user }));
   }, [selected, year, user]);
   const handleChange = (event) => {
     const id = event.target.value;
@@ -251,7 +274,9 @@ function App() {
         </Grid>
         <Grid item xs={1}>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">{i18next.t("label_license")}</InputLabel>
+            <InputLabel id="demo-simple-select-helper-label">
+              {i18next.t("label_license")}
+            </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
@@ -272,7 +297,9 @@ function App() {
       <div className="license-view">
         <div className="panel-short">
           <CopyToClipboard text={generator["code"](licenceShortStr)}>
-            <Button variant="contained">{i18next.t("copy_to_copyboard")}</Button>
+            <Button variant="contained">
+              {i18next.t("copy_to_copyboard")}
+            </Button>
           </CopyToClipboard>
           <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
         </div>
