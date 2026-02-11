@@ -2,24 +2,145 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
 }
+
+.App h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+  letter-spacing: -0.02em;
+}
+
 .license-view {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 24px;
+  margin-top: 32px;
+  flex-wrap: wrap;
 }
-.preview {
-  text-align: start;
-}
-.panel-short {
-  padding: 16px;
-  text-align: start;
-  min-width: 480px;
-  background-color: aliceblue;
-}
+
+.panel-short,
 .panel-long {
-  padding: 16px;
+  padding: 24px;
   text-align: start;
-  min-width: 480px;
-  background-color: aliceblue;
+  min-width: 400px;
+  max-width: 600px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.panel-short:hover,
+.panel-long:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.panel-short pre,
+.panel-long pre {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 16px;
+  margin-bottom: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.panel-short .MuiButton-root,
+.panel-long .MuiButton-root {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+  transition: all 0.3s ease;
+}
+
+.panel-short .MuiButton-root:hover,
+.panel-long .MuiButton-root:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  transform: translateY(-2px);
+}
+
+.panel-short .MuiButton-root:active,
+.panel-long .MuiButton-root:active {
+  transform: translateY(0);
+}
+
+.controls-wrapper {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 24px 40px;
+  display: inline-flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 900px) {
+  .license-view {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .panel-short,
+  .panel-long {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .controls-wrapper {
+    padding: 20px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding: 24px 16px;
+  }
+  
+  .App h1 {
+    font-size: 2rem;
+  }
+  
+  .panel-short,
+  .panel-long {
+    min-width: 100%;
+    padding: 16px;
+  }
 }

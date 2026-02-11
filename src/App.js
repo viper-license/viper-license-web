@@ -8,14 +8,92 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Grid from "@mui/material/Grid";
-
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import CacheManager from "./CacheManager";
 import LocalFileManager from "./LocalFileManager";
 
-// 根据需要判断是否先从缓存读取
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#8b5cf6",
+    },
+    secondary: {
+      main: "#f472b6",
+    },
+  },
+  typography: {
+    fontFamily: "'DM Sans', sans-serif",
+    h3: {
+      fontFamily: "'Space Grotesk', sans-serif",
+      fontWeight: 700,
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-root": {
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "12px",
+            "&::before": {
+              display: "none",
+            },
+            "&::after": {
+              display: "none",
+            },
+          },
+          "& .MuiInputLabel-root": {
+            color: "#6b7280",
+            fontWeight: 500,
+          },
+          "& .MuiInputBase-input": {
+            padding: "12px 16px",
+            fontWeight: 500,
+          },
+        },
+      },
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-root": {
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "12px",
+            "&::before": {
+              display: "none",
+            },
+            "&::after": {
+              display: "none",
+            },
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          padding: "12px 16px",
+          fontWeight: 500,
+          minWidth: "140px",
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#6b7280",
+          fontWeight: 500,
+          "&.Mui-focused": {
+            color: "#8b5cf6",
+          },
+        },
+      },
+    },
+  },
+});
+
 function isCacheFirst() {
   return !global.isVersionUpdated;
 }
@@ -56,7 +134,6 @@ function fetchSource() {
             const url2 = process.env.PUBLIC_URL + "/resources" + full;
             let text1;
             try {
-              // console.log(url1);
               let resp = await fetchFile(url1);
               text1 = await resp.text();
             } catch (e) {
@@ -64,7 +141,6 @@ function fetchSource() {
             }
             let text2;
             try {
-              // console.log(url2);
               let resp = await fetchFile(url2);
               text2 = await resp.text();
             } catch (e) {
@@ -204,7 +280,6 @@ function App() {
   useEffect(() => {
     fetchSource().then(
       (sources) => {
-        // console.log(sources);
         setSources(sources);
       },
       (err) => {
@@ -216,7 +291,6 @@ function App() {
     if (sources.length === 0) {
       return;
     }
-    //默认选中第一个
     setSelected(sources[0]);
   }, [sources]);
   useEffect(() => {
@@ -241,16 +315,16 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Typography variant="h3" gutterBottom>
-        {i18next.t("title")}
-      </Typography>
-      <Grid sx={{ flexGrow: 0 }} container spacing={2} justifyContent="center">
-        <Grid item xs={1}>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Typography variant="h3" gutterBottom>
+          {i18next.t("title")}
+        </Typography>
+        <div className="controls-wrapper">
           <TextField
-            id="standard-basic"
+            id="year-input"
             label={i18next.t("label_year")}
-            variant="standard"
+            variant="filled"
             value={year}
             onChange={(event) => {
               let year = event.target.value;
@@ -258,12 +332,10 @@ function App() {
               CacheManager.saveYear(year);
             }}
           />
-        </Grid>
-        <Grid item xs={1}>
           <TextField
-            id="standard-basic"
+            id="author-input"
             label={i18next.t("label_author")}
-            variant="standard"
+            variant="filled"
             value={user}
             onChange={(event) => {
               let author = event.target.value;
@@ -271,15 +343,13 @@ function App() {
               CacheManager.saveAuthor(author);
             }}
           />
-        </Grid>
-        <Grid item xs={1}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">
+          <FormControl variant="filled">
+            <InputLabel id="license-select-label">
               {i18next.t("label_license")}
             </InputLabel>
             <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
+              labelId="license-select-label"
+              id="license-select"
               value={selected ? selected.id : ""}
               label={i18next.t("label_license")}
               onChange={handleChange}
@@ -291,24 +361,24 @@ function App() {
               ))}
             </Select>
           </FormControl>
-        </Grid>
-      </Grid>
-
-      <div className="license-view">
-        <div className="panel-short">
-          <CopyToClipboard text={generator["code"](licenceShortStr)}>
-            <Button variant="contained">
-              {i18next.t("copy_to_copyboard")}
-            </Button>
-          </CopyToClipboard>
-          <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
         </div>
-        <div className="panel-long">
-          <DownloadLink licenseText={licenceLargeStr} />
-          <LicensePreview className="preview">{licenceLargeStr}</LicensePreview>
+
+        <div className="license-view">
+          <div className="panel-short">
+            <CopyToClipboard text={generator["code"](licenceShortStr)}>
+              <Button variant="contained">
+                {i18next.t("copy_to_copyboard")}
+              </Button>
+            </CopyToClipboard>
+            <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
+          </div>
+          <div className="panel-long">
+            <DownloadLink licenseText={licenceLargeStr} />
+            <LicensePreview className="preview">{licenceLargeStr}</LicensePreview>
+          </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
