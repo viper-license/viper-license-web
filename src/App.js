@@ -16,17 +16,18 @@ import LocalFileManager from "./LocalFileManager";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-      main: "#8b5cf6",
+      main: "#22C55E",
     },
     secondary: {
-      main: "#f472b6",
+      main: "#06B6D4",
     },
   },
   typography: {
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: "'IBM Plex Sans', sans-serif",
     h3: {
-      fontFamily: "'Space Grotesk', sans-serif",
+      fontFamily: "'JetBrains Mono', monospace",
       fontWeight: 700,
     },
   },
@@ -35,8 +36,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiInputBase-root": {
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-            borderRadius: "12px",
+            backgroundColor: "transparent",
+            borderRadius: "8px",
             "&::before": {
               display: "none",
             },
@@ -45,11 +46,10 @@ const theme = createTheme({
             },
           },
           "& .MuiInputLabel-root": {
-            color: "#6b7280",
+            color: "#64748B",
             fontWeight: 500,
           },
           "& .MuiInputBase-input": {
-            padding: "12px 16px",
             fontWeight: 500,
           },
         },
@@ -59,8 +59,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiInputBase-root": {
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-            borderRadius: "12px",
+            backgroundColor: "transparent",
+            borderRadius: "8px",
             "&::before": {
               display: "none",
             },
@@ -74,7 +74,6 @@ const theme = createTheme({
     MuiSelect: {
       styleOverrides: {
         select: {
-          padding: "12px 16px",
           fontWeight: 500,
           minWidth: "140px",
         },
@@ -83,10 +82,10 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: "#6b7280",
+          color: "#64748B",
           fontWeight: 500,
           "&.Mui-focused": {
-            color: "#8b5cf6",
+            color: "#06B6D4",
           },
         },
       },
@@ -269,6 +268,31 @@ function DownloadLink(props) {
   );
 }
 
+function TerminalPanel({ title, children, button, onCopy }) {
+  return (
+    <div className={title === "Header" ? "panel-short" : "panel-long"}>
+      <div className="panel-header">
+        <div className="dots">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>
+        <span className="filename">{title === "Header" ? "LICENSE.header" : "LICENSE"}</span>
+      </div>
+      <div className="panel-content">
+        {onCopy ? (
+          <CopyToClipboard text={onCopy}>
+            {button}
+          </CopyToClipboard>
+        ) : (
+          button
+        )}
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [sources, setSources] = useState([]);
   const [selected, setSelected] = useState();
@@ -320,6 +344,7 @@ function App() {
         <Typography variant="h3" gutterBottom>
           {i18next.t("title")}
         </Typography>
+        <div className="subtitle">open source license generator</div>
         <div className="controls-wrapper">
           <TextField
             id="year-input"
@@ -364,17 +389,35 @@ function App() {
         </div>
 
         <div className="license-view">
-          <div className="panel-short">
-            <CopyToClipboard text={generator["code"](licenceShortStr)}>
+          <TerminalPanel
+            title="Header"
+            onCopy={generator["code"](licenceShortStr)}
+            button={
               <Button variant="contained">
                 {i18next.t("copy_to_copyboard")}
               </Button>
-            </CopyToClipboard>
+            }
+          >
             <LicensePreview className="preview">{licenceShortStr}</LicensePreview>
-          </div>
-          <div className="panel-long">
-            <DownloadLink licenseText={licenceLargeStr} />
+          </TerminalPanel>
+          <TerminalPanel
+            title="Full"
+            button={<DownloadLink licenseText={licenceLargeStr} />}
+          >
             <LicensePreview className="preview">{licenceLargeStr}</LicensePreview>
+          </TerminalPanel>
+        </div>
+
+        <div className="status-bar">
+          <div className="status-item">
+            <span className="status-dot"></span>
+            <span>SYSTEM ONLINE</span>
+          </div>
+          <div className="status-item">
+            <span>v1.0.0</span>
+          </div>
+          <div className="status-item">
+            <span>{new Date().getFullYear()} © VIPER</span>
           </div>
         </div>
       </div>
